@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Client {
 
-	@Id
+	@Id	
 	@GeneratedValue
 	public Long id;
 
