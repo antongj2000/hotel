@@ -3,6 +3,7 @@ package Entities;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,9 +14,9 @@ public class Client {
 
 	@Id
 	@GeneratedValue
-	public Long id;
-
-	public String field;
+	private Long id;
+	@Column(nullable = false)
+	private String field;
 
 	public Long getId() {
 		return id;
