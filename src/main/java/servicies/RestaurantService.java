@@ -15,10 +15,10 @@ public class RestaurantService {
 	@Inject
 	EntityManager em;
 
-	@Transactional
-	public Restaurant createRestaurant(Restaurant r) {
-		return em.merge(r);
-	}
+//	@Transactional
+//	public Restaurant createRestaurant(Restaurant r) {
+//		return em.merge(r);
+//	}
 
 	@Transactional
 	public List<Restaurant> getAllRestaurants() {
