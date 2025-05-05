@@ -20,5 +20,9 @@ public class RestaurantService {
 		return em.merge(r);
 	}
 
+	@Transactional
+	public List<Restaurant> getAllRestaurants() {
+		return em.createQuery("SELECT r FROM Restaurant r", Restaurant.class).getResultList();
+	}
 
 }

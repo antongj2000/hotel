@@ -10,20 +10,19 @@ import servicies.RestaurantService;
 import jakarta.ws.rs.*;
 import jakarta.inject.Inject;
 
-//@Path("/restaurant")
-//@Consumes(MediaType.APPLICATION_JSON) // Accepts JSON input
-//@Produces(MediaType.APPLICATION_JSON)
+@Path("/restaurant")
+@Consumes(MediaType.APPLICATION_JSON) // Accepts JSON input
+@Produces(MediaType.APPLICATION_JSON)
 public class RestaurantResources {
 
 	@Inject
 	RestaurantService rs;
-//
-//	@POST
-//	@Path("/add")
-//	public Restaurant add(Restaurant r) {
-//		return rs.createRestaurant(r);
-//	}
 
-	
+	@GET
+	@Path("/get")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getRestaurants() {
+		return rs.getAllRestaurants().toString();
+	}
 
 }
