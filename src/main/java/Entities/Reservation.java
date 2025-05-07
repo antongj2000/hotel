@@ -16,6 +16,8 @@ public class Reservation {
 	private Long id;
 	@Column(nullable = false)
 	private String name;
+	@Column(nullable = false)
+	private String date;
 
 	public Long getId() {
 		return id;
