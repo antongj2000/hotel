@@ -62,7 +62,7 @@ public class Employee extends PanacheEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id", nullable = false)
-	private Restaurant restaurant;
+	private Restaurant restaurant; 
 
 	@POST
 	@Path("/empAdd")
