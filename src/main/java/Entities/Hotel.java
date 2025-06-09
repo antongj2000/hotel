@@ -72,4 +72,6 @@ public class Hotel {
 	   )
 	   private List<Service> services;
 
+	   
+	   
 }

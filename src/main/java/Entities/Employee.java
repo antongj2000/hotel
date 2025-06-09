@@ -2,6 +2,7 @@ package Entities;
 
 import java.util.List;
 
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.inject.Inject;
 import jakarta.persistence.Column;
@@ -22,7 +23,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import servicies.RestaurantService;
 
 @Entity
 @Path("/e")
@@ -64,22 +64,12 @@ public class Employee extends PanacheEntity {
 	@JoinColumn(name = "restaurant_id", nullable = false)
 	private Restaurant restaurant; 
 
-	@POST
-	@Path("/empAdd")
-	@Transactional
-	@Produces(MediaType.TEXT_PLAIN)
-	public String addEmployee(@QueryParam("name") String name, @QueryParam("restaurantId") Long restaurantId) {
-		Restaurant restaurant = Restaurant.findById(restaurantId);
-		if (restaurant == null) {
-			return "Restaurant not found.";
-		}
 
-		Employee e = new Employee();
-		e.name = name;
-		e.restaurant = restaurant;
-		e.persist();
-
-		return "Employee " + name + " added to restaurant " + restaurant.getName();
+	public Restaurant getRes() {
+		return restaurant;
 	}
 
+	public void setRes(Restaurant res) {
+		this.restaurant = res;
+	}
 }

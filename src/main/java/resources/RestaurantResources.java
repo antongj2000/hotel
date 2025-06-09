@@ -1,12 +1,11 @@
 package resources;
 
 import Entities.Restaurant;
+import Repository.RestaurantRepository;
+
 import jakarta.enterprise.context.Dependent;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
-import servicies.RestaurantService;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.*;
 import jakarta.inject.Inject;
 
@@ -16,13 +15,19 @@ import jakarta.inject.Inject;
 public class RestaurantResources {
 
 	@Inject
-	RestaurantService rs;
+	RestaurantRepository rp;
 
 	@GET
 	@Path("/get")
-	@Produces(MediaType.APPLICATION_JSON)
 	public String getRestaurants() {
-		return rs.getAllRestaurants().toString();
+		return rp.getAllRestaurants().toString();
 	}
+	
+	@POST
+	@Path("/addRestaurant")
+	public Response createRestaurant(Restaurant r) {
+		Restaurant re = rp.addRestaurant(r);
 
+		return Response.ok().entity(re).build();
+	}
 }
