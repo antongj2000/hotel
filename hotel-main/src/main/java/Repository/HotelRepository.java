@@ -1,10 +1,11 @@
 package Repository;
 
-import Entities.Hotel;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import Entities.Hotel;
+
 @Dependent
 public class HotelRepository {
 
@@ -12,8 +13,8 @@ public class HotelRepository {
 	private EntityManager em;
 
 	@Transactional
-	public Hotel createH(Hotel s) {
+	public Hotel createH(Hotel h) {
 
-		return em.merge(s);
+		return em.merge(h);
 	}
 }

@@ -1,25 +1,51 @@
 package resources;
 
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-import restclient.HolidayClient;
-import Client.HolidayResponse;
-
 import java.util.List;
 
-@Path("/holidays")
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import jakarta.inject.Inject;
+
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import Client.CountryClient;
+import Client.HolidayClient;
+import Repository.HolidayRepository;
+import restclient.DateClient;
+
+@Path("/holiday/")
 public class HolidayResource {
+	
 
     @Inject
     @RestClient
-    HolidayClient holidayClient;
+    private DateClient dateClient;
 
-    @GET
-    @Path("/{year}/{countryCode}")
-    public List<HolidayResponse> getHolidays(@PathParam("year") int year, @PathParam("countryCode") String countryCode) {
-        return holidayClient.getHolidays(year, countryCode);
+    @Inject
+    HolidayRepository holidayRepo;
+
+    @POST
+    @Path("/save/{countryCode}")
+  
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response saveHolidays(@PathParam("countryCode") String code) {
+        List<HolidayClient> holidays = dateClient.getNextPublicHolidays(code);
+
+        for (HolidayClient res : holidays) {
+        	holidayRepo.saveHoliday(res);
+        }
+
+        return Response.ok(holidays).build();
     }
+    @GET
+	@Path("getCountries")
+	public Response getCountries() {
+		List<CountryClient> country = dateClient.getAvailableCountries();
+		return Response.ok().entity(country).build();
+	}
 }
